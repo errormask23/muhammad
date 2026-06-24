@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        cyber: {
+                            bg: '#030712',
+                            card: '#0b1329',
+                            primary: '#06b6d4', /* Cyan */
+                            accent: '#6366f1',  /* Indigo */
+                            border: '#1e293b'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .cyber-span {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: default;
+        }
+        .cyber-span:hover {
+            color: #06b6d4 !important;
+            text-shadow: 0 0 8px rgba(6, 182, 212, 0.6), 0 0 20px rgba(6, 182, 212, 0.3);
+            transform: translateX(2px);
+        }
+
+        .disclosure-card {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .disclosure-card:hover {
+            transform: translateY(-4px);
+        }
+    </style>
+</head>
+<body class="bg-cyber-bg text-slate-100 font-sans antialiased overflow-x-hidden">
+
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#1f293710_1px,transparent_1px),linear-gradient(to_bottom,#1f293710_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none"></div>
+
+    <nav class="sticky top-0 z-50 backdrop-blur-md border-b border-cyber-border bg-cyber-bg/70" x-data="{ mobileOpen: false }">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-shield-halved text-cyber-primary text-xl animate-pulse"></i>
+                <span class="font-display font-bold text-xl tracking-wider text-slate-200 cyber-span">M.KHALEEL<span class="text-cyber-primary font-bold">_</span></span>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-400">
+                <a href="#about" class="hover:text-cyber-primary transition-colors">About</a>
+                <a href="#certifications" class="hover:text-cyber-primary transition-colors">Certifications</a>
+                <a href="#skills" class="hover:text-cyber-primary transition-colors">Skills</a>
+                <a href="#experience" class="hover:text-cyber-primary transition-colors">Experience</a>
+                <a href="#projects" class="hover:text-cyber-primary transition-colors">Projects</a>
+                <a href="#bug-bounty" class="hover:text-cyber-primary transition-colors">Bug Bounty</a>
+                <a href="pdfs/muhammad_khalil_CV.pdf" target="_blank" rel="noopener noreferrer" class="px-4 py-2 border border-cyber-primary/30 rounded-lg text-cyber-primary bg-cyber-primary/5 hover:bg-cyber-primary hover:text-cyber-bg transition-all duration-300 flex items-center gap-2">
+                    <i class="fa-solid fa-file-pdf"></i> My_CV
+                </a>
+            </div>
+
+            <button class="md:hidden text-slate-400" @click="mobileOpen = !mobileOpen">
+                <i class="fa-solid fa-bars text-xl" x-show="!mobileOpen"></i>
+                <i class="fa-solid fa-xmark text-xl" x-show="mobileOpen"></i>
+            </button>
+        </div>
+
+        <div class="md:hidden border-b border-cyber-border bg-cyber-bg px-6 py-4 space-y-4" x-show="mobileOpen" x-transition>
+            <a href="#about" @click="mobileOpen = false" class="block text-slate-400 hover:text-cyber-primary">About</a>
+            <a href="#certifications" @click="mobileOpen = false" class="block text-slate-400 hover:text-cyber-primary">Certifications</a>
+            <a href="#skills" @click="mobileOpen = false" class="block text-slate-400 hover:text-cyber-primary">Skills</a>
+            <a href="#experience" @click="mobileOpen = false" class="block text-slate-400 hover:text-cyber-primary">Experience</a>
+            <a href="#projects" @click="mobileOpen = false" class="block text-slate-400 hover:text-cyber-primary">Projects</a>
+            <a href="#bug-bounty" @click="mobileOpen = false" class="block text-slate-400 hover:text-cyber-primary">Bug Bounty</a>
+            <a href="pdfs/muhammad_khalil_CV.pdf" target="_blank" rel="noopener noreferrer" class="block text-center px-4 py-2 bg-cyber-primary text-cyber-bg rounded-lg font-medium">My_CV</a>
+        </div>
+    </nav>
+
+    <header id="about" class="relative max-w-7xl mx-auto px-6 pt-20 pb-16 text-center z-10">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-cyber-primary/30 bg-cyber-primary/10 text-xs font-semibold text-cyber-primary mb-6 backdrop-blur-sm">
+            <span class="w-2 h-2 rounded-full bg-cyber-primary animate-ping"></span>
+            LOCATION: BADAWA, ERBIL // CONSOLE ONLINE
+        </div>
+        <h1 class="font-display text-4xl sm:text-6xl font-bold tracking-tight max-w-5xl mx-auto leading-[1.1] mb-4">
+            Mohammed Khaleel Salih
+        </h1>
+        <h2 class="text-xl sm:text-2xl font-mono text-slate-400 max-w-3xl mx-auto mb-8">
+            Penetration Tester <span class="text-cyber-primary cyber-span">|</span> Web Application Vuln Assessment <span class="text-cyber-primary cyber-span">|</span> PHP Web-Developer
+        </h2>
+        <p class="text-slate-400 text-base sm:text-lg max-w-3xl mx-auto mb-10 font-light leading-relaxed">
+            I am a Penetration Tester specializing in Web Application Vulnerability Assessment. I have identified and reported critical vulnerabilities on high-profile platforms such as <span class="text-slate-200 font-semibold cyber-span">Grab</span> and <span class="text-slate-200 font-semibold cyber-span">Zomato</span>. I actively refine my skill set across platforms like <span class="text-cyber-primary cyber-span">TryHackMe</span> and <span class="text-cyber-accent cyber-span">Hack The Box</span>, and consistently compete in rigorous CTF fields.
+        </p>
+
+        <div class="flex flex-wrap justify-center gap-3 max-w-2xl mx-auto mb-10">
+            <span class="px-3 py-1.5 rounded-lg border border-cyber-border bg-cyber-card/60 font-mono text-sm text-slate-300 flex items-center gap-2 cyber-span"><i class="fa-solid fa-flag text-cyan-400"></i> NexaCorp: Zero Credentials (API)</span>
+            <span class="px-3 py-1.5 rounded-lg border border-cyber-border bg-cyber-card/60 font-mono text-sm text-slate-300 flex items-center gap-2 cyber-span"><i class="fa-solid fa-flag text-indigo-400"></i> AshurCTF 2025</span>
+            <span class="px-3 py-1.5 rounded-lg border border-cyber-border bg-cyber-card/60 font-mono text-sm text-slate-300 flex items-center gap-2 cyber-span"><i class="fa-solid fa-flag text-emerald-400"></i> SulyCybercon 2024</span>
+        </div>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href="mailto:muhamadxalil804@gmail.com" class="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-cyber-primary to-cyber-accent text-cyber-bg font-semibold rounded-xl shadow-lg shadow-cyber-primary/20 hover:opacity-90 transition-all flex items-center justify-center gap-2">
+                <i class="fa-solid fa-envelope text-lg"></i> Send Secure Signal
+            </a>
+            <a href="tel:07503239373" class="w-full sm:w-auto px-6 py-3 border border-cyber-border bg-cyber-card/40 backdrop-blur-sm rounded-xl font-medium hover:bg-cyber-border/50 transition-colors flex items-center justify-center gap-2 font-mono text-base">
+                <i class="fa-solid fa-phone text-cyber-primary"></i> <span class="cyber-span">0750 323 9373</span>
+            </a>
+        </div>
+    </header>
+
+    <section class="max-w-4xl mx-auto px-6 mb-24" x-data="localTerminal()">
+        <div id="terminal-container" @click="focusTerminalInput()" class="bg-slate-950 rounded-2xl border border-cyber-border shadow-2xl overflow-hidden shadow-cyan-950/10 cursor-text">
+            <div class="bg-cyber-card/80 border-b border-cyber-border px-4 py-3 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
+                    <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
+                    <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
+                    <span class="text-xs font-mono text-slate-400 ml-2">error-01:~</span>
+                </div>
+                <i class="fa-solid fa-terminal text-slate-500 text-xs"></i>
+            </div>
+            <div class="p-5 font-mono text-xs sm:text-sm min-h-[250px] max-h-[350px] overflow-y-auto space-y-3" id="term-screen">
+                <div class="text-slate-500 font-bold tracking-wide">// Core Session Initiated. Type 'help' to print the available utility dashboard array. Press [Tab] to autocomplete.</div>
+                <template x-for="log in logs">
+                    <div class="space-y-1">
+                        <div class="text-slate-400"><span class="text-cyber-primary font-bold">error-01:~$</span> <span class="text-cyan-300 font-semibold" x-text="log.c"></span></div>
+                        <div class="text-slate-200 pl-4 py-2 border-l border-cyber-primary/30 bg-slate-900/50 rounded-r-lg font-mono leading-relaxed whitespace-pre-line" x-html="log.o"></div>
+                    </div>
+                </template>
+                <div class="flex items-center gap-2 pt-2">
+                    <span class="text-cyber-primary font-bold">error-01:~$</span>
+                    <input type="text" id="terminal-input" x-model="query" @keydown.enter="runCmd" @keydown.tab.prevent="autocompleteCmd" @keydown.arrow-up="historyUp" @keydown.arrow-down="historyDown" class="bg-transparent focus:outline-none text-cyber-primary w-full caret-cyber-primary font-semibold" placeholder="Type a command (e.g., 'help', 'status', 'targets')..." autocomplete="off">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="certifications" class="max-w-7xl mx-auto px-6 py-16 border-t border-cyber-border">
+        <div class="mb-12 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-cyber-primary/10 flex items-center justify-center text-cyber-primary">
+                <i class="fa-solid fa-award text-xl"></i>
+            </div>
+            <div>
+                <h2 class="font-display text-2xl sm:text-3xl font-bold">Cryptographic Credentials & Certification Assets</h2>
+                <p class="text-slate-400 text-sm">Advanced certifications and rigorous lab verifications.</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="md:col-span-3 group rounded-2xl border border-cyber-primary/40 bg-gradient-to-br from-cyber-card to-slate-950 p-6 flex flex-col justify-between hover:border-cyber-primary transition-all duration-300 shadow-xl shadow-cyan-950/5">
+                <div class="flex flex-col lg:flex-row gap-6 items-center lg:items-start">
+                    <div class="w-full lg:w-72 shrink-0">
+                        <img src="img/ewptx.jpg" alt="eWPTX Badge Asset" class="rounded-xl border border-cyber-border bg-slate-900 object-cover w-full h-44 shadow-lg">
+                    </div>
+                    <div class="space-y-3 text-center lg:text-left">
+                        <span class="px-2.5 py-1 rounded bg-cyan-500/10 text-cyber-primary font-mono text-sm font-bold cyber-span">Advanced Web Pentesting Professional eXtreme</span>
+                        <h3 class="font-display text-2xl font-bold text-slate-100">eWPTX (eLearnSecurity / INE)</h3>
+                        <p class="text-slate-400 font-mono text-sm font-semibold">76 Hours of Theory & Advanced Labs</p>
+                        <p class="text-slate-300 text-base leading-relaxed">
+                            Validates advanced mastery over injection methodologies, web app attack chain construction, advanced API testing, Web Service architecture testing, and custom filter/WAF bypass mechanisms.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="group rounded-2xl border border-cyber-border bg-cyber-card/40 p-5 flex flex-col justify-between hover:border-cyber-accent/40 transition-all">
+                <div class="space-y-4">
+                    <img src="img/ewpt.jpg" alt="eWPT Certification Asset" class="rounded-xl border border-cyber-border object-cover w-full h-40 bg-slate-900 shadow">
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="px-2 py-0.5 rounded bg-indigo-500/10 text-cyber-accent font-mono text-xs font-bold cyber-span">INE // 2026</span>
+                            <span class="text-sm text-slate-400 font-mono">106 Hours</span>
+                        </div>
+                        <h3 class="font-display font-bold text-xl text-slate-200">eWPT (Web Pentesting)</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">Comprehensive program detailing full web infrastructure exposure identification, manual verification steps, and exploitation pathways.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="group rounded-2xl border border-cyber-border bg-cyber-card/40 p-5 flex flex-col justify-between hover:border-cyber-accent/40 transition-all">
+                <div class="space-y-4">
+                    <img src="img/ejptv2.jpg" alt="eJPTv2 Certification Asset" class="rounded-xl border border-cyber-border object-cover w-full h-40 bg-slate-900 shadow">
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="px-2 py-0.5 rounded bg-indigo-500/10 text-cyber-accent font-mono text-xs font-bold cyber-span">INE // 2025</span>
+                            <span class="text-sm text-slate-400 font-mono">153 Hours</span>
+                        </div>
+                        <h3 class="font-display font-bold text-xl text-slate-200">eJPT (Junior Penetration Tester)</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">Focused training covering technical parameters for complete internal network verification, live mapping, initial system access vectors, and post-exploitation persistence loops.</p>
+                    </div>
+                    <div class="pt-2 border-t border-cyber-border/40 flex justify-end">
+                        <a href="https://certs.ine.com/18acc775-6919-4800-b713-bfecc68558c3?utm_source=telegram&utm_medium=social" target="_blank" rel="noopener noreferrer" class="text-xs text-cyber-primary hover:underline flex items-center gap-1 font-semibold">View Verification <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="group rounded-2xl border border-cyber-border bg-cyber-card/40 p-5 flex flex-col justify-between hover:border-cyber-accent/40 transition-all">
+                <div class="space-y-4">
+                    <img src="img/tcm-eth.png" alt="Practical Ethical Hacking Badge Asset" class="rounded-xl border border-cyber-border object-cover w-full h-40 bg-slate-900 shadow">
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="px-2 py-0.5 rounded bg-indigo-500/10 text-cyber-accent font-mono text-xs font-bold cyber-span">TCM-Security</span>
+                            <span class="text-sm text-slate-400 font-mono">2023</span>
+                        </div>
+                        <h3 class="font-display font-bold text-xl text-slate-200">Practical Ethical Hacking (PEH)</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">Practical networks mapping infrastructure, active parameter identification scripts, and environment blueprint mapping logic.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="group rounded-2xl border border-cyber-border bg-cyber-card/40 p-5 flex flex-col justify-between hover:border-cyber-accent/40 transition-all">
+                <div class="space-y-4">
+                    <img src="img/cyberbounty.jpg" alt="Bug Bounty Advance Image" class="rounded-xl border border-cyber-border object-cover w-full h-40 bg-slate-900 shadow">
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="px-2 py-0.5 rounded bg-indigo-500/10 text-cyber-accent font-mono text-xs font-bold cyber-span">Cybershield.krd</span>
+                            <span class="text-sm text-slate-400 font-mono">2024</span>
+                        </div>
+                        <h3 class="font-display font-bold text-xl text-slate-200">Bug Bounty Advance</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">Advanced parameter logic testing and custom payload distribution structures across live deployment ecosystems.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="group rounded-2xl border border-cyber-border bg-cyber-card/40 p-5 flex flex-col justify-between hover:border-cyber-accent/40 transition-all">
+                <div class="space-y-4">
+                    <img src="img/cyberShild-eth.jpg" alt="Ethical Hacking V1 Asset" class="rounded-xl border border-cyber-border object-cover w-full h-40 bg-slate-900 shadow">
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="px-2 py-0.5 rounded bg-indigo-500/10 text-cyber-accent font-mono text-xs font-bold cyber-span">Cybershield.krd</span>
+                            <span class="text-sm text-slate-400 font-mono">2023</span>
+                        </div>
+                        <h3 class="font-display font-bold text-xl text-slate-200">Ethical Hacking V1</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">Comprehensive logic validation pipelines introducing environmental threat matrix scanning and security controls mapping.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="group rounded-2xl border border-cyber-border bg-cyber-card/40 p-5 flex flex-col justify-between hover:border-cyber-accent/40 transition-all">
+                <div class="space-y-4">
+                    <img src="img/linux.jpg" alt="Linux Badge Asset" class="rounded-xl border border-cyber-border object-cover w-full h-40 bg-slate-900 shadow">
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="px-2 py-0.5 rounded bg-indigo-500/10 text-cyber-accent font-mono text-xs font-bold cyber-span">Cybershield.krd</span>
+                            <span class="text-sm text-slate-400 font-mono">2023</span>
+                        </div>
+                        <h3 class="font-display font-bold text-xl text-slate-200">Linux OS & Bash Scripting</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed">System architecture analysis, shell environments management, configuration permissions mapping, and automatic target scanning shell scripts.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="md:col-span-2 group rounded-2xl border border-dashed border-cyber-border bg-slate-950/40 p-5 flex flex-col justify-center">
+                <h3 class="text-sm font-mono font-bold uppercase tracking-wider text-cyber-primary mb-3"><i class="fa-solid fa-plus mr-1"></i> <span class="cyber-span">Additional Framework Operations Logged</span></h3>
+                <div class="grid grid-cols-1 gap-4">
+                    <div class="p-3 bg-cyber-card/60 border border-cyber-border rounded-xl">
+                        <div class="text-[11px] text-slate-400 font-mono mb-1">ISLAMIC RELIEF // 2019</div>
+                        <h4 class="font-display font-bold text-base text-slate-200">Life Skills Development</h4>
+                        <p class="text-slate-400 text-xs mt-1">High-pressure workplace environment management matrix systems.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="max-w-7xl mx-auto px-6 py-16 border-t border-cyber-border" x-data="{ activeTab: 'web' }">
+        <div class="mb-12 text-center md:text-left">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md border border-cyber-accent/30 bg-cyber-accent/5 font-mono text-xs text-cyber-accent mb-4">
+                <i class="fa-solid fa-microchip animate-spin text-[10px]"></i> ENGINE_LOAD: CORE_SKILLS_V3
+            </div>
+            <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight">Technical Stack Matrix</h2>
+            <p class="text-slate-400 text-sm mt-1">Interact with the core systems below to map offensive engineering layers.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 bg-slate-950/40 p-4 sm:p-6 rounded-3xl border border-cyber-border backdrop-blur-xl relative">
+            
+            <div class="lg:col-span-4 flex flex-col gap-2.5">
+                <div class="text-[11px] font-mono tracking-widest text-slate-500 uppercase px-3 mb-1">Select Active Layer</div>
+                
+                <button @click="activeTab = 'web'" 
+                    :class="activeTab === 'web' ? 'border-cyber-primary bg-cyber-primary/10 text-white shadow-lg shadow-cyan-500/5' : 'border-cyber-border bg-cyber-card/30 text-slate-400 hover:border-slate-700 hover:text-slate-200'"
+                    class="w-full text-left p-4 rounded-xl border flex items-center justify-between transition-all duration-300 group">
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-10 h-10 rounded-lg bg-slate-900 border border-cyber-border flex items-center justify-center text-cyber-primary group-hover:scale-105 transition-transform"><i class="fa-solid fa-globe text-base"></i></div>
+                        <div>
+                            <div class="font-display font-bold text-sm tracking-wide">Web Application Security</div>
+                            <div class="text-[11px] font-mono text-slate-500 mt-0.5">Vulnerability Scope</div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-xs opacity-40 group-hover:translate-x-1 transition-transform"></i>
+                </button>
+
+                <button @click="activeTab = 'methodology'" 
+                    :class="activeTab === 'methodology' ? 'border-cyber-primary bg-cyber-primary/10 text-white shadow-lg shadow-cyan-500/5' : 'border-cyber-border bg-cyber-card/30 text-slate-400 hover:border-slate-700 hover:text-slate-200'"
+                    class="w-full text-left p-4 rounded-xl border flex items-center justify-between transition-all duration-300 group">
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-10 h-10 rounded-lg bg-slate-900 border border-cyber-border flex items-center justify-center text-cyan-400 group-hover:scale-105 transition-transform"><i class="fa-solid fa-diagram-project text-base"></i></div>
+                        <div>
+                            <div class="font-display font-bold text-sm tracking-wide">Assessment Architectures</div>
+                            <div class="text-[11px] font-mono text-slate-500 mt-0.5">Framework Blueprints</div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-xs opacity-40 group-hover:translate-x-1 transition-transform"></i>
+                </button>
+
+                <button @click="activeTab = 'network'" 
+                    :class="activeTab === 'network' ? 'border-cyber-accent bg-cyber-accent/10 text-white shadow-lg shadow-indigo-500/5' : 'border-cyber-border bg-cyber-card/30 text-slate-400 hover:border-slate-700 hover:text-slate-200'"
+                    class="w-full text-left p-4 rounded-xl border flex items-center justify-between transition-all duration-300 group">
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-10 h-10 rounded-lg bg-slate-900 border border-cyber-border flex items-center justify-center text-cyber-accent group-hover:scale-105 transition-transform"><i class="fa-solid fa-network-wired text-base"></i></div>
+                        <div>
+                            <div class="font-display font-bold text-sm tracking-wide">Host & Infrastructure</div>
+                            <div class="text-[11px] font-mono text-slate-500 mt-0.5">Auditing Vectors</div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-xs opacity-40 group-hover:translate-x-1 transition-transform"></i>
+                </button>
+
+                <button @click="activeTab = 'arsenal'" 
+                    :class="activeTab === 'arsenal' ? 'border-cyber-accent bg-cyber-accent/10 text-white shadow-lg shadow-indigo-500/5' : 'border-cyber-border bg-cyber-card/30 text-slate-400 hover:border-slate-700 hover:text-slate-200'"
+                    class="w-full text-left p-4 rounded-xl border flex items-center justify-between transition-all duration-300 group">
+                    <div class="flex items-center gap-3.5">
+                        <div class="w-10 h-10 rounded-lg bg-slate-900 border border-cyber-border flex items-center justify-center text-indigo-400 group-hover:scale-105 transition-transform"><i class="fa-solid fa-screwdriver-wrench text-base"></i></div>
+                        <div>
+                            <div class="font-display font-bold text-sm tracking-wide">Tooling & Environment</div>
+                            <div class="text-[11px] font-mono text-slate-500 mt-0.5">Development & Pentest</div>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-xs opacity-40 group-hover:translate-x-1 transition-transform"></i>
+                </button>
+            </div>
+
+            <div class="lg:col-span-8 bg-cyber-card/50 border border-cyber-border rounded-2xl p-5 sm:p-6 relative overflow-hidden flex flex-col justify-between min-h-[360px]">
+                <div class="absolute -bottom-6 -right-6 text-slate-900/20 font-mono text-8xl font-black uppercase tracking-tighter pointer-events-none select-none" x-text="activeTab"></div>
+                
+                <div>
+                    <div x-show="activeTab === 'web'" 
+                         x-transition:enter="transition-all duration-300 ease-out"
+                         x-transition:enter-start="opacity-0 scale-95"
+                         x-transition:enter-end="opacity-100 scale-100"
+                         x-transition:leave="transition-all duration-200 ease-in"
+                         x-transition:leave-start="opacity-100 scale-100"
+                         x-transition:leave-end="opacity-0 scale-95"
+                         class="space-y-6">
+                        <div>
+                            <span class="text-xs font-mono text-cyber-primary tracking-widest uppercase block mb-1">// SECURE ENGAGEMENT MATRIX</span>
+                            <p class="text-sm text-slate-400 leading-relaxed max-w-2xl">Deep assessment logic engineered to target authorization vulnerabilities, application flow validation, and dynamic state data structures.</p>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div class="p-4 rounded-xl border border-cyber-border bg-slate-950/60 flex items-center gap-3 group hover:border-cyber-primary/40 transition-colors"><i class="fa-solid fa-cube text-cyber-primary"></i> <span class="text-sm font-medium text-slate-200 cyber-span">API Penetration Testing</span></div>
+                            <div class="p-4 rounded-xl border border-cyber-border bg-slate-950/60 flex items-center gap-3 group hover:border-cyber-primary/40 transition-colors"><i class="fa-solid fa-code text-cyber-primary"></i> <span class="text-sm font-medium text-slate-200 cyber-span">Injection Vulnerabilities</span></div>
+                            <div class="p-4 rounded-xl border border-cyber-border bg-slate-950/60 flex items-center gap-3 group hover:border-cyber-primary/40 transition-colors"><i class="fa-solid fa-shield-virus text-cyber-primary"></i> <span class="text-sm font-medium text-slate-200 cyber-span">Filter Evasion & WAF Bypass</span></div>
+                            <div class="p-4 rounded-xl border border-cyber-border bg-slate-950/60 flex items-center gap-3 group hover:border-cyber-primary/40 transition-colors"><i class="fa-solid fa-fingerprint text-cyber-primary"></i> <span class="text-sm font-medium text-slate-200 cyber-span">Authentication Attacks</span></div>
+                            <div class="p-4 rounded-xl border border-cyber-border bg-slate-950/60 flex items-center gap-3 group hover:border-cyber-primary/40 transition-colors sm:col-span-2"><i class="fa-solid fa-server text-cyber-primary"></i> <span class="text-sm font-medium text-slate-200 cyber-span">Server-Side Attacks & Access Vectors</span></div>
+                        </div>
+                    </div>
+
+                    <div x-show="activeTab === 'methodology'" 
+                         x-transition:enter="transition-all duration-300 ease-out"
+                         x-transition:enter-start="opacity-0 scale-95"
+                         x-transition:enter-end="opacity-100 scale-100"
+                         x-transition:leave="transition-all duration-200 ease-in"
+                         x-transition:leave-start="opacity-100 scale-100"
+                         x-transition:leave-end="opacity-0 scale-95"
+                         class="space-y-6">
+                        <div>
+                            <span class="text-xs font-mono text-cyber-primary tracking-widest uppercase block mb-1">// INTEL ARCHITECTURE FRAMEWORKS</span>
+                            <p class="text-sm text-slate-400 leading-relaxed max-w-2xl">Rigorous mapping configurations translating threat landscapes into precise technical diagnostic matrices.</p>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 font-mono text-xs">
+                            <div class="p-4 rounded-xl border border-cyber-border bg-slate-950/60 hover:border-cyber-primary/40 transition-colors"><span class="text-cyber-primary font-bold block mb-1.5 cyber-span">&gt;_ Reconnaissance</span><span class="text-slate-300 leading-relaxed block">Web Application Recon & Metadata Surface Harvesting</span></div>
+                            <div class="p-4 rounded-xl border border-cyber-border bg-slate-950/60 hover:border-cyber-primary/40 transition-colors"><span class="text-cyber-primary font-bold block mb-1.5 cyber-span">&gt;_ Mapping</span><span class="text-slate-300 leading-relaxed block">Information Gathering, Footprinting, & System Enumeration</span></div>
+                            <div class="p-4 rounded-xl border border-cyber-border bg-slate-950/60 hover:border-cyber-primary/40 transition-colors"><span class="text-cyber-primary font-bold block mb-1.5 cyber-span">&gt;_ Audit Engine</span><span class="text-slate-300 leading-relaxed block">Web Application Penetration Testing Methodology</span></div>
+                            <div class="p-4 rounded-xl border border-cyber-border bg-slate-950/60 hover:border-cyber-primary/40 transition-colors"><span class="text-cyber-primary font-bold block mb-1.5 cyber-span">&gt;_ Strategy Matrix</span><span class="text-slate-300 leading-relaxed block">Black Box Architecture Penetration Testing</span></div>
+                        </div>
+                    </div>
+
+                    <div x-show="activeTab === 'network'" 
+                         x-transition:enter="transition-all duration-300 ease-out"
+                         x-transition:enter-start="opacity-0 scale-95"
+                         x-transition:enter-end="opacity-100 scale-100"
+                         x-transition:leave="transition-all duration-200 ease-in"
+                         x-transition:leave-start="opacity-100 scale-100"
+                         x-transition:leave-end="opacity-0 scale-95"
+                         class="space-y-6">
+                        <div>
+                            <span class="text-xs font-mono text-cyber-accent tracking-widest uppercase block mb-1">// INFRASTRUCTURE THREAT MAPPING</span>
+                            <p class="text-sm text-slate-400 leading-relaxed max-w-2xl">Auditing core configurations, tracking boundary vectors, and managing privilege states across target hosts.</p>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div class="p-4 rounded-xl border border-cyber-border bg-slate-950/60 flex items-center gap-3 group hover:border-cyber-accent/40 transition-colors"><i class="fa-solid fa-circle-nodes text-cyber-accent"></i> <span class="text-sm font-medium text-slate-200 cyber-span">Host & Network Pentesting</span></div>
+                            <div class="p-4 rounded-xl border border-cyber-border bg-slate-950/60 flex items-center gap-3 group hover:border-cyber-accent/40 transition-colors"><i class="fa-solid fa-computer text-cyber-accent"></i> <span class="text-sm font-medium text-slate-200 cyber-span">System/Host-Based Attacks</span></div>
+                            <div class="p-4 rounded-xl border border-cyber-border bg-slate-950/60 flex items-center gap-3 group hover:border-cyber-accent/40 transition-colors"><i class="fa-solid fa-day-sine text-cyber-accent"></i> <span class="text-sm font-medium text-slate-200 cyber-span">Network-Based Attacks</span></div>
+                            <div class="p-4 rounded-xl border border-cyber-border bg-slate-950/60 flex items-center gap-3 group hover:border-cyber-accent/40 transition-colors"><i class="fa-solid fa-users text-cyber-accent"></i> <span class="text-sm font-medium text-slate-200 cyber-span">Employee Security Testing</span></div>
+                            <div class="p-4 rounded-xl border border-cyber-border bg-slate-950/60 flex items-center gap-3 group hover:border-cyber-accent/40 transition-colors sm:col-span-2"><i class="fa-solid fa-clipboard-check text-cyber-accent"></i> <span class="text-sm font-medium text-slate-200 cyber-span">Host & Network Auditing Operations</span></div>
+                        </div>
+                    </div>
+
+                    <div x-show="activeTab === 'arsenal'" 
+                         x-transition:enter="transition-all duration-300 ease-out"
+                         x-transition:enter-start="opacity-0 scale-95"
+                         x-transition:enter-end="opacity-100 scale-100"
+                         x-transition:leave="transition-all duration-200 ease-in"
+                         x-transition:leave-start="opacity-100 scale-100"
+                         x-transition:leave-end="opacity-0 scale-95"
+                         class="space-y-5">
+                        <div>
+                            <span class="text-xs font-mono text-cyber-accent tracking-widest uppercase block mb-1">// WEAPONIZED ARSENAL MODULES</span>
+                            <p class="text-sm text-slate-400 leading-relaxed max-w-2xl">Custom automated tools, network analyzers, vulnerability assessment systems, and code development languages.</p>
+                        </div>
+                        <div class="space-y-4">
+                            <div>
+                                <span class="text-[11px] uppercase font-mono tracking-wider text-slate-500 block mb-2 cyber-span">&gt;_ Security Assessment Operations Toolkit</span>
+                                <div class="flex flex-wrap gap-2 font-mono text-xs">
+                                    <span class="px-3 py-2 bg-slate-950 rounded-lg border border-cyber-border text-slate-200 hover:border-cyber-accent/50 cyber-span">Metasploit Framework (MSF)</span>
+                                    <span class="px-3 py-2 bg-slate-950 rounded-lg border border-cyber-border text-slate-200 hover:border-cyber-accent/50 cyber-span">Burp Suite Pro</span>
+                                    <span class="px-3 py-2 bg-slate-950 rounded-lg border border-cyber-border text-slate-200 hover:border-cyber-accent/50 cyber-span">OWASP ZAP</span>
+                                    <span class="px-3 py-2 bg-slate-950 rounded-lg border border-cyber-border text-slate-200 hover:border-cyber-accent/50 cyber-span">Acunetix</span>
+                                    <span class="px-3 py-2 bg-slate-950 rounded-lg border border-cyber-border text-slate-200 hover:border-cyber-accent/50 cyber-span">Nessus</span>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="text-[11px] uppercase font-mono tracking-wider text-slate-500 block mb-2 cyber-span">&gt;_ Architecture Environments & Code Engines</span>
+                                <div class="flex flex-wrap gap-2 font-mono text-xs">
+                                    <span class="px-3 py-2 bg-slate-950 rounded-lg border border-cyber-border text-cyber-primary hover:border-cyber-primary/50 cyber-span">HTML5 System</span>
+                                    <span class="px-3 py-2 bg-slate-950 rounded-lg border border-cyber-border text-cyber-primary hover:border-cyber-primary/50 cyber-span">CSS Layout Matrix</span>
+                                    <span class="px-3 py-2 bg-slate-950 rounded-lg border border-cyber-border text-cyber-primary hover:border-cyber-primary/50 cyber-span">PHP Back-End Core</span>
+                                    <span class="px-3 py-2 bg-slate-950 rounded-lg border border-cyber-border text-cyber-primary hover:border-cyber-primary/50 cyber-span">MySQL Relational Engines</span>
+                                    <span class="px-3 py-2 bg-slate-950 rounded-lg border border-cyber-border text-slate-300 hover:border-slate-500 cyber-span">Kali-Linux Distribution</span>
+                                    <span class="px-3 py-2 bg-slate-950 rounded-lg border border-cyber-border text-slate-300 hover:border-slate-500 cyber-span">Windows Core Nodes</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 pt-4 border-t border-cyber-border/40 flex items-center justify-between text-[10px] font-mono text-slate-600">
+                    <span>SECTOR_STATE // LOCK_ACTIVE</span>
+                    <span>VAULT_ID: 0x992F_CORE</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="max-w-7xl mx-auto px-6 py-16 border-t border-cyber-border">
+        <div class="mb-12 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-400">
+                <i class="fa-solid fa-briefcase text-lg"></i>
+            </div>
+            <div>
+                <h2 class="font-display text-2xl sm:text-3xl font-bold">Operational Timeline</h2>
+                <p class="text-slate-400 text-sm">Professional operational background and historical technical engagements.</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="rounded-xl border border-cyber-border bg-cyber-card/30 p-6 space-y-3 flex flex-col justify-between hover:border-cyber-primary/40 transition-all duration-300">
+                <div class="space-y-2">
+                    <div class="flex justify-between items-center text-xs">
+                        <span class="text-cyber-primary font-mono font-bold tracking-wider uppercase cyber-span">IT Department Internship</span> 
+                        <span class="text-slate-500 font-mono">07/2024 - 08/2024</span>
+                    </div>
+                    <h4 class="font-display font-bold text-xl text-slate-200">Erbil Governorate IT Dept</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Collaborated within a dedicated 3-student technical team to build and configure a custom structural engineering database framework using Microsoft Access architectures. Diagnosed, repaired, and deployed vital structural hardware setups across departments.
+                    </p>
+                </div>
+            </div>
+
+            <div class="rounded-xl border border-cyber-border bg-cyber-card/30 p-6 space-y-3 flex flex-col justify-between hover:border-cyber-accent/40 transition-all duration-300">
+                <div class="space-y-2">
+                    <div class="flex justify-between items-center text-xs">
+                        <span class="text-cyber-accent font-mono font-bold tracking-wider uppercase cyber-span">Full-Stack Development Contract</span> 
+                        <span class="text-slate-500 font-mono">07/2024 - 08/2024</span>
+                    </div>
+                    <h4 class="font-display font-bold text-xl text-slate-200">Online Real Estate Platform Engine</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Served as the independent primary engineer architecting a secure, comprehensive end-to-end web property deployment. Engineered back-end operational logic utilizing custom PHP frameworks connected to relational MySQL databases.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="max-w-7xl mx-auto px-6 py-16 border-t border-cyber-border">
+        <div class="mb-12 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400">
+                <i class="fa-solid fa-code-branch text-lg"></i>
+            </div>
+            <div>
+                <h2 class="font-display text-2xl sm:text-3xl font-bold">Engineered Projects & Deployments</h2>
+                <p class="text-slate-400 text-sm">Full-stack web applications and custom software builds.</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="rounded-xl border border-cyber-border bg-cyber-card/40 p-6 flex flex-col justify-between hover:border-cyber-primary/40 transition-all md:col-span-1" x-data="{ videoOpen: false }">
+                <div class="space-y-3">
+                    <span class="text-[10px] font-mono text-cyber-primary uppercase tracking-wider cyber-span">Shaqlawa Technical College Build</span>
+                    <h3 class="font-display font-bold text-lg text-slate-200">Students Registration Verification Platform</h3>
+                    <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">
+                        A secure digital registration pipeline designed for 12th-grade applications. Automatically validates identity fields and runs a custom generation script to deliver a unique digital ID containing an authentic, scannable verification QR code.
+                    </p>
+                    
+                    <div class="pt-2 flex flex-wrap gap-2">
+                        <button @click="videoOpen = !videoOpen" class="px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-cyber-primary/10 border border-cyber-primary/30 text-cyber-primary hover:bg-cyber-primary hover:text-cyber-bg transition-all duration-300 flex items-center gap-1.5">
+                            <i class="fa-brands fa-youtube text-sm" :class="videoOpen ? 'text-current' : 'text-red-500'"></i>
+                            <span x-text="videoOpen ? 'Hide Demo' : 'Watch Demo'">Watch Demo</span>
+                        </button>
+                    </div>
+
+                    <div x-show="videoOpen" x-transition.opacity.scale.origin.top class="mt-4 pt-2 border-t border-cyber-border/60" style="display: none;">
+                        <div class="relative w-full aspect-video rounded-xl overflow-hidden border border-cyber-primary/40 bg-black shadow-lg shadow-cyan-950/40">
+                            <template x-if="videoOpen">
+                                <iframe class="absolute inset-0 w-full h-full" src="https://www.youtube.com/embed/CW6bpOYMZU4?si=JKoobH_0YFOY9iD1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-6 pt-4 border-t border-cyber-border/40 flex justify-between items-center text-xs text-slate-500">
+                    <span class="font-mono">HTML / CSS / PHP System</span>
+                    <span class="text-emerald-400 font-mono cyber-span">Production Ready</span>
+                </div>
+            </div>
+
+            <div class="rounded-xl border border-cyber-border bg-cyber-card/40 p-6 flex flex-col justify-between hover:border-cyber-primary/40 transition-all">
+                <div class="space-y-3">
+                    <span class="text-[10px] font-mono text-cyber-accent uppercase tracking-wider cyber-span">Independent Architecture</span>
+                    <h3 class="font-display font-bold text-lg text-slate-200">Full-Stack Real Estate Network</h3>
+                    <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">
+                        An end-to-end portal processing dynamic user inputs, relational map connections, and backend data parsing using custom PHP logical handlers on top of a secured MySQL target matrix.
+                    </p>
+                </div>
+                <div class="mt-6 pt-4 border-t border-cyber-border/40 flex justify-between items-center text-xs text-slate-500">
+                    <span class="font-mono">PHP / MySQL Core</span>
+                    <span class="text-cyber-primary font-mono cyber-span">Independent Project</span>
+                </div>
+            </div>
+
+            <div class="rounded-xl border border-cyber-border bg-cyber-card/40 p-6 flex flex-col justify-between hover:border-cyber-primary/40 transition-all">
+                <div class="space-y-3">
+                    <span class="text-[10px] font-mono text-purple-400 uppercase tracking-wider cyber-span">UI / UX Interactive Component</span>
+                    <h3 class="font-display font-bold text-lg text-slate-200">Kids Academy Learning Console</h3>
+                    <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">
+                        A highly visual, sound-mapped pedagogical framework interface utilizing responsive layout nodes and dynamic triggers for interactive instruction modules.
+                    </p>
+                </div>
+                <div class="mt-6 pt-4 border-t border-cyber-border/40 flex justify-between items-center text-xs text-slate-500">
+                    <span class="font-mono">Front-End Stack</span>
+                    <span class="text-purple-400 font-mono cyber-span">Group Build</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="bug-bounty" class="max-w-7xl mx-auto px-6 py-16 border-t border-cyber-border">
+        <div class="mb-12 flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-400">
+                <i class="fa-solid fa-flag text-lg"></i>
+            </div>
+            <div>
+                <h2 class="font-display text-2xl sm:text-3xl font-bold">Bug Bounty Disclosures</h2>
+                <p class="text-slate-400 text-sm">Vulnerability validations reported across active programs.</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="disclosure-card rounded-2xl border border-cyber-border bg-gradient-to-b from-cyber-card to-slate-950 p-6 flex flex-col justify-between hover:border-yellow-500/60 hover:shadow-[0_4px_30px_rgba(234,179,8,0.12)]">
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-mono text-slate-500">Grab Subdomain Platform</span>
+                        <span class="px-2 py-0.5 rounded text-[10px] uppercase font-bold tracking-wider bg-yellow-500/10 text-yellow-500 border border-yellow-500/20 cyber-span">Medium</span>
+                    </div>
+                    <h3 class="font-display font-bold text-lg text-slate-200">OTP Bypassing Leading to Account Takeover</h3>
+                    <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">
+                        Identified an authentication workflow flaw within a grab.com target subdomain. Discovered that manipulating OTP verification parameters could allow unauthorized actors to fully compromise alternate profiles.
+                    </p>
+                </div>
+                <div class="mt-6 pt-4 border-t border-cyber-border/60">
+                    <span class="inline-flex items-center gap-1.5 text-xs text-slate-500 bg-slate-900 px-3 py-1.5 rounded-lg border border-cyber-border cursor-not-allowed">
+                        <i class="fa-solid fa-lock text-[10px]"></i> Logged Under VDP Rules
+                    </span>
+                </div>
+            </div>
+
+            <div class="disclosure-card rounded-2xl border border-cyber-border bg-gradient-to-b from-cyber-card to-slate-950 p-6 flex flex-col justify-between hover:border-red-500/60 hover:shadow-[0_4px_30px_rgba(239,68,68,0.12)]">
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-mono text-slate-500">Private Platform</span>
+                        <span class="px-2 py-0.5 rounded text-[10px] uppercase font-bold tracking-wider bg-red-500/10 text-red-400 border border-red-500/20 cyber-span">High</span>
+                    </div>
+                    <h3 class="font-display font-bold text-lg text-slate-200">Reflected XSS Leading to Account Takeover</h3>
+                    <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">
+                        Constructed an exploitation payload chain capable of capturing administrative session states and completely hijacking active sessions.
+                    </p>
+                </div>
+                <div class="mt-6 pt-4 border-t border-cyber-border/60">
+                    <span class="inline-flex items-center gap-1.5 text-xs text-slate-500 bg-slate-900 px-3 py-1.5 rounded-lg border border-cyber-border cursor-not-allowed">
+                        <i class="fa-solid fa-lock text-[10px]"></i> Disclosure Private
+                    </span>
+                </div>
+            </div>
+
+            <div class="disclosure-card rounded-2xl border border-cyber-border bg-gradient-to-b from-cyber-card to-slate-950 p-6 flex flex-col justify-between hover:border-red-500/60 hover:shadow-[0_4px_30px_rgba(239,68,68,0.12)]">
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-mono text-slate-500">Zomato / Target Ecosystem</span>
+                        <span class="px-2 py-0.5 rounded text-[10px] uppercase font-bold tracking-wider bg-red-500/10 text-red-400 border border-red-500/20 cyber-span">High</span>
+                    </div>
+                    <h3 class="font-display font-bold text-lg text-slate-200">SQL Injection Vectors</h3>
+                    <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">
+                        Sanitized analysis of a time-based blind SQL injection vector discovered within parameter sorting components, exposing data structures and core server credentials.
+                    </p>
+                </div>
+                <div class="mt-6 pt-4 border-t border-cyber-border/60">
+                    <span class="inline-flex items-center gap-1.5 text-xs text-slate-500 bg-slate-900 px-3 py-1.5 rounded-lg border border-cyber-border cursor-not-allowed">
+                        <i class="fa-solid fa-lock text-[10px]"></i> Disclosure Private
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="max-w-7xl mx-auto px-6 py-6 text-right">
+        <span class="text-xs font-mono text-slate-600">Verification Profile Node: Mohammed_Khaleel.pdf</span>
+    </section>
+
+    <footer id="contact" class="border-t border-cyber-border bg-slate-950/60 backdrop-blur-md pt-16 pb-12 text-center text-sm" x-data="{ copied: false }">
+        <div class="max-w-4xl mx-auto px-6 space-y-6">
+            <h2 class="font-display text-2xl sm:text-3xl font-bold">Contact Signal Node</h2>
+            
+            <div class="inline-flex flex-col items-center gap-2">
+                <button 
+                    @click="navigator.clipboard.writeText('muhamadxalil804@gmail.com'); copied = true; setTimeout(() => copied = false, 2000)"
+                    class="font-mono text-base sm:text-lg text-cyber-primary font-bold tracking-wide hover:text-cyan-300 transition-colors flex items-center gap-2 bg-slate-900/80 px-4 py-2 rounded-xl border border-cyber-border group focus:outline-none">
+                    <span>muhamadxalil804@gmail.com</span>
+                    <i class="fa-regular" :class="copied ? 'fa-circle-check text-emerald-400' : 'fa-copy text-slate-500 group-hover:text-cyber-primary'"></i>
+                </button>
+                <span x-show="copied" x-transition class="text-xs text-emerald-400 font-mono" style="display: none;">Signal address copied to clipboard!</span>
+            </div>
+            
+            <div class="flex justify-center gap-4 text-xs font-mono text-slate-500 py-2">
+                <span>KURDISH: <span class="text-slate-300 cyber-span">NATIVE</span></span>
+                <span>•</span>
+                <span>ENGLISH: <span class="text-slate-300 cyber-span">INTERMEDIATE (B1/B2)</span></span>
+                <span>•</span>
+                <span>ARABIC: <span class="text-slate-300 cyber-span">BASIC</span></span>
+            </div>
+            
+            <div class="flex justify-center gap-4 text-xl pt-4">
+                <a href="https://www.linkedin.com/in/muhammad-khalil-a95613274/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-xl bg-cyber-card border border-cyber-border flex items-center justify-center text-slate-400 hover:text-cyber-primary hover:border-cyber-primary/60 transition-all">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="https://hackerone.com/goodboy91?type=user" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-xl bg-cyber-card border border-cyber-border flex items-center justify-center text-slate-400 hover:text-cyber-primary hover:border-cyber-primary/60 transition-all">
+                    <i class="fa-solid fa-bug"></i>
+                </a>
+            </div>
+
+            <div class="pt-8 border-t border-cyber-border/40 text-xs text-slate-600 font-mono">
+                MOHAMMED KHALEEL SALIH © 2026 // OFFENSIVE BLUEPRINTS SECURED.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function localTerminal() {
+            return {
+                query: '',
+                logs: [],
+                history: [],
+                historyIndex: -1,
+                commands: ['help', 'status', 'education', 'targets', 'clear'],
+                
+                focusTerminalInput() {
+                    const inputEl = document.getElementById('terminal-input');
+                    if (inputEl) inputEl.focus();
+                },
+
+                autocompleteCmd() {
+                    const currentInput = this.query.trim().toLowerCase();
+                    if (!currentInput) return;
+                    
+                    const matches = this.commands.filter(cmd => cmd.startsWith(currentInput));
+                    if (matches.length === 1) {
+                        this.query = matches[0];
+                    }
+                },
+
+                runCmd() {
+                    const rawInput = this.query.trim();
+                    if(!rawInput) return;
+                    
+                    const clean = rawInput.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                    const normalized = clean.toLowerCase();
+
+                    this.history.push(rawInput);
+                    this.historyIndex = this.history.length;
+                    
+                    let out = '';
+
+                    if(normalized === 'help') {
+                        out = `<div class="text-slate-400 font-bold mb-1">[AVAILABLE SHELL UTILITIES ARRAY]</div>` +
+                              `<span class="text-cyber-primary font-semibold">status</span>     - Print full runtime status report\n` +
+                              `<span class="text-cyber-primary font-semibold">education</span>  - Extract official academic credentials\n` +
+                              `<span class="text-cyber-primary font-semibold">targets</span>    - View verified vulnerability findings\n` +
+                              `<span class="text-cyber-primary font-semibold">clear</span>      - Flush terminal logs screen output`;
+                    } else if(normalized === 'status') {
+                        out = `<div class="text-emerald-400 font-bold mb-1">[✓] SYSTEM STATUS: OPERATIONAL</div>` +
+                              `• Identity Node : Mohammed Khaleel Salih\n` +
+                              `• Core Engine   : eWPTX / eWPT Active Blueprint\n` +
+                              `• Surface State : Secure Environment Connection Established.`;
+                    } else if(normalized === 'education') {
+                        out = `<div class="text-cyan-400 font-bold mb-1">[+] ACADEMIC EXTRAPOLATION MATRIX</div>` +
+                              `• Institution : Shaqlawa Technical College\n` +
+                              `• Discipline  : Information Technology\n` +
+                              `• Metric Score: Graduated Top 5 out of entire tier context (85.5 GPA Score).`;
+                    } else if (normalized === 'targets') {
+                        out = `<div class="text-amber-500 font-bold mb-1">[!] DISCLOSED SUBDOMAIN VULN VERIFICATION REPORT</div>` +
+                              `• <span class="text-slate-300">Grab.com</span> Framework - Authentication Flow Bypass Logic\n` +
+                              `• <span class="text-slate-300">Zomato</span> Core Nodes - Relational Sorting Matrix Error Extraction`;
+                    } else if (normalized === 'clear') {
+                        this.logs = [];
+                        this.query = '';
+                        return;
+                    } else {
+                        out = `<span class="text-red-400 font-semibold">[✕] Command execution error:</span> "${clean}" is not recognized.\nType <span class="text-cyber-primary font-bold underline">help</span> to view all available commands.`;
+                    }
+                    
+                    this.logs.push({ c: rawInput, o: out });
+                    this.query = '';
+                    
+                    this.$nextTick(() => {
+                        const target = document.getElementById('term-screen');
+                        if (target) target.scrollTop = target.scrollHeight;
+                    });
+                },
+
+                historyUp() {
+                    if (this.historyIndex > 0) {
+                        this.historyIndex--;
+                        this.query = this.history[this.historyIndex];
+                    }
+                },
+
+                historyDown() {
+                    if (this.historyIndex < this.history.length - 1) {
+                        this.historyIndex++;
+                        this.query = this.history[this.historyIndex];
+                    } else {
+                        this.historyIndex = this.history.length;
+                        this.query = '';
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
