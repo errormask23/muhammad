@@ -70,7 +70,7 @@
                 <a href="#experience" class="hover:text-cyber-primary transition-colors">Experience</a>
                 <a href="#projects" class="hover:text-cyber-primary transition-colors">Projects</a>
                 <a href="#bug-bounty" class="hover:text-cyber-primary transition-colors">Bug Bounty</a>
-                <a href="pdfs/mohammed-khaleel.pdf" target="_blank" rel="noopener noreferrer" class="px-4 py-2 border border-cyber-primary/30 rounded-lg text-cyber-primary bg-cyber-primary/5 hover:bg-cyber-primary hover:text-cyber-bg transition-all duration-300 flex items-center gap-2">
+                <a href="pdfs/muhammad_khalil_CV.pdf" target="_blank" rel="noopener noreferrer" class="px-4 py-2 border border-cyber-primary/30 rounded-lg text-cyber-primary bg-cyber-primary/5 hover:bg-cyber-primary hover:text-cyber-bg transition-all duration-300 flex items-center gap-2">
                     <i class="fa-solid fa-file-pdf"></i> My_CV
                 </a>
             </div>
@@ -720,13 +720,13 @@
                     } else if(normalized === 'freemoney') {
                         out = `<div class="text-emerald-400 font-bold mb-1">[✓] OH MY FREE MONEY</div>` +
                               `• jorge COME BACK YESTERDAY IT'S NOT A BANK!.`;
-                              const moneySound = new Audio('dm.mp3'); 
+                              const moneySound = new Audio('img/dm.mp3'); 
                               moneySound.play().catch(error => {
                               console.error("Audio playback failed:", error); });
                                 
                                 // 1. Create the video element
                                 const videoOverlay = document.createElement('video');
-                                videoOverlay.src = 'freemoney.mp4'; // Path to your video
+                                videoOverlay.src = 'img/freemoney.mp4'; // Path to your video
                                 videoOverlay.autoplay = true; // Start playing automatically
                                 videoOverlay.muted = true;    // Browsers require muted for autoplay
                                 videoOverlay.playsInline = true;
@@ -764,12 +764,12 @@
                     } else {
                         out = `<span class="text-red-400 font-semibold">[✕] Command execution error:</span> "${clean}" is not recognized.\nType <span class="text-cyber-primary font-bold underline">help</span> to view all available commands.`;
                          
-                        const moneySound = new Audio('quack.m4a'); 
+                        const moneySound = new Audio('img/quack.m4a'); 
                               moneySound.play().catch(error => {
                               console.error("Audio playback failed:", error); });
 
                         const imgOverlay = document.createElement('img');
-                        imgOverlay.src = 'image.png'; 
+                        imgOverlay.src = 'img/cat.png'; 
                         
                         // 2. Style it to pop up in the center of the screen
                         imgOverlay.style.position = 'fixed';
