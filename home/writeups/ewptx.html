@@ -8,7 +8,7 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <script>
       tailwind.config = {
@@ -21,12 +21,22 @@
             },
             colors: {
               cyber: {
-                bg: '#030712',
-                card: '#0b1329',
+                bg: '#050814',
+                card: '#0d1527',
+                'card-hover': '#131e36',
                 border: '#1e293b',
-                primary: '#06b6d4',
-                /* Cyan */ accent: '#a855f7' /* Purple */
+                primary: '#06b6d4', /* Cyan */
+                accent: '#a855f7',  /* Purple */
+                neon: '#38bdf8',    /* Bright Sky Blue */
+                emerald: '#10b981',
+                rose: '#f43f5e',
+                amber: '#f59e0b'
               }
+            },
+            boxShadow: {
+              'neon-cyan': '0 0 20px -5px rgba(6, 182, 212, 0.4)',
+              'neon-purple': '0 0 20px -5px rgba(168, 85, 247, 0.4)',
+              'glow-sm': '0 0 10px rgba(6, 182, 212, 0.25)',
             }
           }
         }
@@ -34,129 +44,269 @@
     </script>
     <style>
       .cyber-grid {
-        background-size: 30px 30px;
-        background-image: linear-gradient(to right, rgba(6, 182, 212, 0.02) 1px, transparent 1px), linear-gradient(to bottom, rgba(6, 182, 212, 0.02) 1px, transparent 1px);
+        background-size: 35px 35px;
+        background-image: 
+          linear-gradient(to right, rgba(6, 182, 212, 0.03) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(6, 182, 212, 0.03) 1px, transparent 1px);
+      }
+      .gradient-text {
+        background: linear-gradient(135deg, #38bdf8 0%, #a855f7 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .gradient-border {
+        position: relative;
+      }
+      .gradient-border::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 0.75rem;
+        padding: 1px;
+        background: linear-gradient(135deg, rgba(6,182,212,0.5), rgba(168,85,247,0.3));
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+      }
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #050814;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #1e293b;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #06b6d4;
       }
     </style>
   </head>
-  <body class="bg-cyber-bg text-slate-300 font-sans antialiased selection:bg-cyber-primary/30 selection:text-white min-h-screen cyber-grid" x-data="{ copied: false }">
-    <header class="sticky top-0 z-50 backdrop-blur-md border-b border-cyber-border/40 bg-cyber-bg/70 h-16">
+  <body class="bg-cyber-bg text-slate-300 font-sans antialiased selection:bg-cyber-primary/30 selection:text-white min-h-screen cyber-grid relative overflow-x-hidden" x-data="{ copied: false }">
+    
+    <!-- Ambient Background Glows -->
+    <div class="fixed top-0 left-1/4 w-96 h-96 bg-cyber-primary/10 rounded-full blur-[120px] pointer-events-none"></div>
+    <div class="fixed bottom-1/3 right-1/4 w-96 h-96 bg-cyber-accent/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+    <!-- Sticky Header -->
+    <header class="sticky top-0 z-50 backdrop-blur-xl border-b border-cyber-border/60 bg-cyber-bg/80 h-16 transition-all duration-300">
       <div class="max-w-4xl mx-auto px-4 h-full flex justify-between items-center">
-        <a href="portfilio-modern.html" class="font-display font-bold text-lg text-slate-200 flex items-center gap-2 tracking-tight">
-          <span class="text-cyber-primary font-mono">&lt;/&gt;</span> System_Core </a>
-        <a href="../index.html" class="text-xs font-mono text-slate-400 hover:text-cyber-primary transition-colors flex items-center gap-1.5">
-          <i class="fa-solid fa-arrow-left"></i> Back </a>
+        <a href="portfilio-modern.html" class="font-display font-bold text-lg text-slate-100 flex items-center gap-2 tracking-tight group">
+          <span class="text-cyber-primary font-mono group-hover:text-cyber-accent transition-colors">&lt;/&gt;</span>
+          <span class="group-hover:text-cyber-neon transition-colors">System_Core</span>
+        </a>
+        <a href="../index.html" class="text-xs font-mono text-slate-400 hover:text-cyber-primary transition-colors flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-800 hover:border-cyber-primary/40 bg-cyber-card/50 backdrop-blur-sm">
+          <i class="fa-solid fa-arrow-left text-cyber-primary"></i> Back
+        </a>
       </div>
     </header>
-    <main class="max-w-3xl mx-auto px-4 py-12">
-      <header class="space-y-4 mb-8 pb-8 border-b border-cyber-border/40">
+
+    <main class="max-w-3xl mx-auto px-4 py-12 relative z-10">
+      
+      <!-- Article Header -->
+      <header class="space-y-4 mb-10 pb-8 border-b border-cyber-border/60">
+        <div class="flex items-center gap-2 text-xs font-mono text-cyber-primary">
+          <span class="px-2.5 py-1 rounded-md bg-cyber-primary/10 border border-cyber-primary/30">CERTIFICATION WRITEUP</span>
+        </div>
+        <h1 class="font-display font-bold text-3xl sm:text-4xl lg:text-5xl text-white leading-tight tracking-tight">
+          How I Passed <span class="gradient-text">eWPTX v3</span>
+        </h1>
+        <p class="text-slate-400 text-sm font-mono">(eLearnSecurity Web Application Penetration Tester eXtreme)</p>
         
-        <h1 class="font-display font-bold text-3xl sm:text-4xl text-slate-100 leading-tight tracking-tight"> How I Passed eWPTX v3 (eLearnSecurity Web Application Penetration Tester eXtreme) </h1>
-        <div class="flex flex-wrap items-center gap-4 text-xs font-mono text-slate-500 pt-2">
-          <span class="flex items-center gap-1.5">
-            <i class="fa-regular fa-calendar"></i> May 2, 2026 </span>
-          <span class="w-1 h-1 rounded-full bg-slate-700"></span>
-          <span class="text-emerald-400 flex items-center gap-1">
-            <i class="fa-solid fa-shield-halved"></i> Passed & Verified </span>
+        <div class="flex flex-wrap items-center gap-4 text-xs font-mono text-slate-400 pt-3">
+          <span class="flex items-center gap-2 bg-cyber-card/60 px-3 py-1.5 rounded-md border border-cyber-border/50">
+            <i class="fa-regular fa-calendar text-cyber-accent"></i> May 2, 2026
+          </span>
+          <span class="flex items-center gap-2 bg-emerald-950/40 text-emerald-400 px-3 py-1.5 rounded-md border border-emerald-500/30">
+            <i class="fa-solid fa-shield-halved"></i> Passed & Verified
+          </span>
         </div>
       </header>
-      <article class="space-y-6 text-slate-300 text-sm sm:text-base leading-relaxed">
-        <p class="italic text-slate-4400 font-serif text-center text-lg ">بسم الله الرحمن الرحيم</p>
-        <h2 class="font-display font-bold text-xl text-slate-200 mt-8 mb-4 flex items-center gap-2">
-          <span class="text-cyber-primary text-sm">01 //</span> Introduction
-        </h2>
-        <p> eWPTX is an advanced web application penetration testing certification. The exam is designed to guide you and help you build a solid understanding of how web application components operate under the hood, with a strong emphasis on exploiting advanced vulnerabilities. Let's look into how I tackled it & passed. </p>
-        <p> Before diving into the examp, keep these core Informations in mind: </p>
-        <ul class="list-disc pl-6 space-y-2 font-mono text-xs sm:text-sm text-slate-400">
-          <li>You have exactly <strong class="text-slate-200">18 hours</strong> to answer all questions. </li>
-          <li>The format consists of Multiple Choice Questions (MCQs) alongside writable input fields.</li>
-          <li>The scoping target across <strong class="text-slate-200">4 distinct IPs/domains</strong>, including specified subdomains. </li>
-        </ul>
-        <blockquote class="border-l-2 border-cyber-primary bg-cyber-card/30 p-4 rounded-r-xl font-mono text-xs sm:text-sm text-slate-400 space-y-1">
-          <span class="text-cyber-primary font-bold block">[Take This NOTE]</span> Ensure you thoroughly map every indicated target and scope before start hacking.
-        </blockquote>
-        <h2 class="font-display font-bold text-xl text-slate-200 mt-8 mb-4 flex items-center gap-2">
-          <span class="text-cyber-primary text-sm">02 //</span> how do i studied
-        </h2>
-        <p> The official eWPTX Course is 76 hours and 41 minutes (consisting of 41h 41m of video instruction paired with 35h of practical labs). Because I had already achieved the baseline eWPT certification previously, I chose to skip some modules. </p>
-        <p>
-          <strong class="text-cyber-primary">Important Note:</strong> I do not recommend skipping any topic unless you have core experience.
-        </p>
-        <p> For the rest of the course material, I focused and studied them. I carefully documented core methodologies into a physical notebook. If you choose this path, always back up your physical notes digitally—take images of each page to prevent catastrophic data loss! Additionally, complete each lab concurrently with its specific topic module. When concluding the course, and attempt them again without viewing the solutions. </p>
-        <h2 class="font-display font-bold text-xl text-slate-200 mt-8 mb-4 flex items-center gap-2">
-          <span class="text-cyber-primary text-sm">03 //</span> Target Preparation
-        </h2>
-        <p> Beyond concluding course materials, I dedicated some of my time to exteranl labs . I focused intensely on <strong class="text-slate-200">PortSwigger Web Security Academy</strong> labs, which was very useful for me. </p>
-        <div class="rounded-xl border border-cyber-border bg-black overflow-hidden font-mono text-xs my-4 shadow-xl">
-          <div class="bg-cyber-card/60 px-4 py-2 border-b border-cyber-border/40 text-[11px] text-cyber-primary font-bold tracking-wider uppercase"> Focused Vulnerability Vector Checklist </div>
-          <div class="p-4 bg-slate-950/40 grid grid-cols-2 gap-2 text-slate-400">
-            <div>• API Security Testing</div>
-            <div>• JWT Vulnerabilities</div>
-            <div>• Advanced SQL Injection</div>
-            <div>• Information Disclosure</div>
-            <div>• SSRF Injections</div>
-            <div>• OS Command Injection</div>
-            <div>• Path Traversal Breaks</div>
-            <div>• Access Control Flaws</div>
-            <div>• Authentication Bypass</div>
-            <div>• Malicious File Uploads</div>
-          </div>
-        </div>
-        <p> However,i dont recommending you to do like mine, so don't do same as i did! bcz maybe you need more practice or you need more points? spending as much time as you can it will be helpful for you. </p>
-        <h2 class="font-display font-bold text-xl text-slate-200 mt-8 mb-4 flex items-center gap-2">
-          <span class="text-cyber-primary text-sm">04 //</span> THE EXAM
-        </h2>
-        <p class="font-mono text-xs text-amber-500 bg-amber-500/5 px-3 py-2 border border-amber-500/10 rounded"> // i pass it with Second Attempt But my first attempt gave me a good overview what should i do to my second attempt. </p>
-        <h2 class="font-display font-bold text-xl text-slate-200 mt-8 mb-4 flex items-center gap-2">
-          <span class="text-cyber-primary text-sm">05 //</span> FIRST ATTEMPT
-        </h2>
-        <P>first time i started the lab and saw the questions i was like: Oh Ya ALLAH why i did it, why i started the exam, what are those questions and those things but i said to myself you did now you have to continue. it was painful, however, i didnt make it this time.
-            and i answered the question without a good roadmap i did more of them randomly not randomly answer randomly of testing the host.
-        </P>
-        
-         <h2 class="font-display font-bold text-xl text-slate-200 mt-8 mb-4 flex items-center gap-2">
-          <span class="text-cyber-primary text-sm">06 //</span> The Golden Strategy (Second Attempt)
-        </h2>
-        <p> this time i didn’t do what i did in first attempt, this time i did very good way which
 
-i recommending to you to do it also.this time by searching & collecting informations about how much the exam will change between 1st attempt and 2nd attemept & i got there are not much different between but wait was it? actually it was right there was different of questions but not all of them. and i changed my methodology. </p>
-        <ul class="list-decimal pl-6 space-y-3 font-sans text-slate-300">
-          <li>
-            i separated the hosts to myself and didn’t answering them randomly like i did in 1st tr.
-          </li>
-          <li>
-           running nmap scan against all of them and save it in a file i recommending cherrytree to taking notes.
-          </li>
-          <li>
-            then go to each target separately, one by one.
-          </li>
-          <li>
-            answering only the questions that connected for main target except those are depending to other targets too.
-          </li>
-          <li>
-            focus on exploits which are very important (GOLD ONE)</li>
-          <li>
-            after it i went to other questions about next target. and like that.
-          </li>
-        </ul>
+      <!-- Main Article -->
+      <article class="space-y-8 text-slate-300 text-sm sm:text-base leading-relaxed">
+        
+        <!-- Opening Bismillah -->
+        <p class="italic text-cyber-neon font-serif text-center text-xl sm:text-2xl py-3 px-6 bg-cyber-card/40 rounded-xl border border-cyber-border/40 gradient-border shadow-glow-sm">
+          بسم الله الرحمن الرحيم
+        </p>
+
+        <!-- Section 01 -->
+        <section>
+          <h2 class="font-display font-bold text-xl text-slate-100 mt-10 mb-4 flex items-center gap-3">
+            <span class="text-cyber-primary font-mono text-sm px-2 py-0.5 rounded bg-cyber-primary/10 border border-cyber-primary/30">01 //</span> Introduction
+          </h2>
+          <p class="mb-4">
+            eWPTX is an advanced web application penetration testing certification. The exam is designed to guide you and help you build a solid understanding of how web application components operate under the hood, with a strong emphasis on exploiting advanced vulnerabilities. Let's look into how I tackled it & passed.
+          </p>
+          <p class="mb-3 font-semibold text-slate-200">
+            Before diving into the exam, keep these core details in mind:
+          </p>
+          <ul class="space-y-2.5 font-mono text-xs sm:text-sm text-slate-300 my-4">
+            <li class="flex items-start gap-3 bg-cyber-card/50 p-3 rounded-lg border border-cyber-border/40">
+              <i class="fa-solid fa-clock text-cyber-accent mt-0.5"></i>
+              <span>You have exactly <strong class="text-cyber-neon">18 hours</strong> to answer all questions.</span>
+            </li>
+            <li class="flex items-start gap-3 bg-cyber-card/50 p-3 rounded-lg border border-cyber-border/40">
+              <i class="fa-solid fa-list-check text-cyber-primary mt-0.5"></i>
+              <span>The format consists of Multiple Choice Questions (MCQs) alongside writable input fields.</span>
+            </li>
+            <li class="flex items-start gap-3 bg-cyber-card/50 p-3 rounded-lg border border-cyber-border/40">
+              <i class="fa-solid fa-network-wired text-cyber-accent mt-0.5"></i>
+              <span>The scoping targets span across <strong class="text-cyber-neon">4 distinct IPs/domains</strong>, including specified subdomains.</span>
+            </li>
+          </ul>
+
+          <blockquote class="border-l-4 border-cyber-primary bg-gradient-to-r from-cyber-primary/10 via-cyber-card/40 to-transparent p-4 rounded-r-xl font-mono text-xs sm:text-sm text-slate-300 space-y-1 my-6 shadow-glow-sm">
+            <span class="text-cyber-primary font-bold flex items-center gap-2">
+              <i class="fa-solid fa-lightbulb text-amber-400"></i> [Take This NOTE]
+            </span>
+            <span>Ensure you thoroughly map every indicated target and scope before starting to hack.</span>
+          </blockquote>
+        </section>
+
+        <!-- Section 02 -->
+        <section>
+          <h2 class="font-display font-bold text-xl text-slate-100 mt-10 mb-4 flex items-center gap-3">
+            <span class="text-cyber-primary font-mono text-sm px-2 py-0.5 rounded bg-cyber-primary/10 border border-cyber-primary/30">02 //</span> How I Studied
+          </h2>
+          <p class="mb-4">
+            The official eWPTX course is 76 hours and 41 minutes long (consisting of 41h 41m of video instruction paired with 35h of practical labs). Because I had already achieved the baseline eWPT certification previously, I chose to skip some modules.
+          </p>
+          
+          <div class="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-200 text-sm my-4 flex items-start gap-3">
+            <i class="fa-solid fa-triangle-exclamation text-amber-400 text-lg mt-0.5"></i>
+            <div>
+              <strong class="text-amber-400 font-semibold block mb-0.5">Important Note:</strong>
+              I do not recommend skipping any topic unless you already have direct core experience.
+            </div>
+          </div>
+
+          <p>
+            For the rest of the course material, I stayed focused and carefully documented core methodologies into a physical notebook. If you choose this path, always back up your physical notes digitally—take images of each page to prevent catastrophic data loss! Additionally, complete each lab concurrently with its specific topic module. When concluding the course, re-attempt them without viewing the solutions.
+          </p>
+        </section>
+
+        <!-- Section 03 -->
+        <section>
+          <h2 class="font-display font-bold text-xl text-slate-100 mt-10 mb-4 flex items-center gap-3">
+            <span class="text-cyber-primary font-mono text-sm px-2 py-0.5 rounded bg-cyber-primary/10 border border-cyber-primary/30">03 //</span> Target Preparation
+          </h2>
+          <p>
+            Beyond concluding course materials, I dedicated time to external labs. I focused intensely on <strong class="text-cyber-neon font-semibold">PortSwigger Web Security Academy</strong> labs, which were extremely valuable.
+          </p>
+
+          <div class="rounded-xl border border-cyber-border bg-cyber-card/90 overflow-hidden font-mono text-xs my-6 shadow-neon-purple transition-all hover:border-cyber-accent/50">
+            <div class="bg-gradient-to-r from-cyber-card via-slate-900 to-cyber-card px-4 py-3 border-b border-cyber-border/60 text-cyber-accent font-bold tracking-wider uppercase flex items-center gap-2">
+              <i class="fa-solid fa-bug text-cyber-primary"></i> Focused Vulnerability Vector Checklist
+            </div>
+            <div class="p-5 grid grid-cols-1 sm:grid-cols-2 gap-3 text-slate-300 bg-slate-950/60">
+              <div class="flex items-center gap-2"><i class="fa-solid fa-terminal text-cyber-primary text-[10px]"></i> API Security Testing</div>
+              <div class="flex items-center gap-2"><i class="fa-solid fa-terminal text-cyber-primary text-[10px]"></i> JWT Vulnerabilities</div>
+              <div class="flex items-center gap-2"><i class="fa-solid fa-terminal text-cyber-primary text-[10px]"></i> Advanced SQL Injection</div>
+              <div class="flex items-center gap-2"><i class="fa-solid fa-terminal text-cyber-primary text-[10px]"></i> Information Disclosure</div>
+              <div class="flex items-center gap-2"><i class="fa-solid fa-terminal text-cyber-primary text-[10px]"></i> SSRF Injections</div>
+              <div class="flex items-center gap-2"><i class="fa-solid fa-terminal text-cyber-primary text-[10px]"></i> OS Command Injection</div>
+              <div class="flex items-center gap-2"><i class="fa-solid fa-terminal text-cyber-primary text-[10px]"></i> Path Traversal Breaks</div>
+              <div class="flex items-center gap-2"><i class="fa-solid fa-terminal text-cyber-primary text-[10px]"></i> Access Control Flaws</div>
+              <div class="flex items-center gap-2"><i class="fa-solid fa-terminal text-cyber-primary text-[10px]"></i> Authentication Bypass</div>
+              <div class="flex items-center gap-2"><i class="fa-solid fa-terminal text-cyber-primary text-[10px]"></i> Malicious File Uploads</div>
+            </div>
+          </div>
+
+          <p class="text-slate-400 text-sm">
+            However, don't feel obligated to follow my exact route! You might need extra practice or higher coverage. Spending as much hands-on time as possible will only work to your advantage.
+          </p>
+        </section>
+
+        <!-- Section 04 & 05 -->
+        <section class="space-y-6">
+          <h2 class="font-display font-bold text-xl text-slate-100 mt-10 mb-4 flex items-center gap-3">
+            <span class="text-cyber-primary font-mono text-sm px-2 py-0.5 rounded bg-cyber-primary/10 border border-cyber-primary/30">04 //</span> The Exam
+          </h2>
+          
+          <div class="font-mono text-xs text-amber-300 bg-amber-500/10 px-4 py-3 border border-amber-500/30 rounded-lg flex items-center gap-3 shadow-sm">
+            <i class="fa-solid fa-circle-info text-amber-400 text-base"></i>
+            <span>I passed on my second attempt! But my first attempt gave me a crucial overview of what to refine.</span>
+          </div>
+
+          <h2 class="font-display font-bold text-xl text-slate-100 mt-8 mb-4 flex items-center gap-3">
+            <span class="text-cyber-rose font-mono text-sm px-2 py-0.5 rounded bg-cyber-rose/10 border border-cyber-rose/30">05 //</span> First Attempt
+          </h2>
+          <p class="bg-cyber-card/30 p-4 rounded-xl border border-cyber-border/40 text-slate-300">
+            The first time I launched the lab environment and opened the questions, I felt overwhelmed. It was intense and painful, and ultimately I didn't pass. My main mistake was jumping between targets without a structured methodology—testing hosts randomly instead of following a disciplined workflow.
+          </p>
+        </section>
+
+        <!-- Section 06 -->
+        <section>
+          <h2 class="font-display font-bold text-xl text-slate-100 mt-10 mb-4 flex items-center gap-3">
+            <span class="text-emerald-400 font-mono text-sm px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/30">06 //</span> The Golden Strategy (Second Attempt)
+          </h2>
+          <p class="mb-4">
+            On my retake, I completely overhauled my execution strategy. Here is the streamlined workflow that worked:
+          </p>
+
+          <ol class="space-y-3 font-sans text-slate-300 my-6">
+            <li class="flex gap-3 bg-cyber-card/40 p-3.5 rounded-xl border border-cyber-border/50 hover:border-cyber-primary/40 transition-colors">
+              <span class="font-mono font-bold text-cyber-primary">01.</span>
+              <span>Isolated each target host clearly instead of jumping around randomly.</span>
+            </li>
+            <li class="flex gap-3 bg-cyber-card/40 p-3.5 rounded-xl border border-cyber-border/50 hover:border-cyber-primary/40 transition-colors">
+              <span class="font-mono font-bold text-cyber-primary">02.</span>
+              <span>Ran complete Nmap scans across all scope targets first, saving outputs into <strong>CherryTree</strong> for fast referencing.</span>
+            </li>
+            <li class="flex gap-3 bg-cyber-card/40 p-3.5 rounded-xl border border-cyber-border/50 hover:border-cyber-primary/40 transition-colors">
+              <span class="font-mono font-bold text-cyber-primary">03.</span>
+              <span>Attacked targets systematically, one host at a time.</span>
+            </li>
+            <li class="flex gap-3 bg-cyber-card/40 p-3.5 rounded-xl border border-cyber-border/50 hover:border-cyber-primary/40 transition-colors">
+              <span class="font-mono font-bold text-cyber-primary">04.</span>
+              <span>Answered questions specifically bound to the active target before moving forward.</span>
+            </li>
+            <li class="flex gap-3 bg-cyber-card/40 p-3.5 rounded-xl border border-cyber-border/50 hover:border-cyber-primary/40 transition-colors">
+              <span class="font-mono font-bold text-amber-400">05.</span>
+              <span>Prioritized high-impact exploitation steps — quality over speed.</span>
+            </li>
+            <li class="flex gap-3 bg-cyber-card/40 p-3.5 rounded-xl border border-cyber-border/50 hover:border-cyber-primary/40 transition-colors">
+              <span class="font-mono font-bold text-cyber-primary">06.</span>
+              <span>Proceeded to the next target systematically until all vectors were exhausted.</span>
+            </li>
+          </ol>
+        </section>
+
       </article>
-      <footer class="mt-12 pt-6 border-t border-cyber-border/40 flex flex-wrap justify-between items-center gap-4 text-xs font-mono">
-        <div class="flex items-center gap-2 text-slate-500">
-          <span>FINALLY:</span>
-          <span class="text-emerald-400">Alhamdulillah. ‎‏(وَآخِرُ دَعْوَاهُمْ أَنِ الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ)</span>
+
+      <!-- Post Footer -->
+      <footer class="mt-14 pt-8 border-t border-cyber-border/60 flex flex-wrap justify-between items-center gap-4 text-xs font-mono">
+        <div class="flex items-center gap-2 bg-emerald-950/30 border border-emerald-500/30 px-3.5 py-2 rounded-lg text-emerald-400">
+          <span class="font-bold">STATUS:</span>
+          <span>Alhamdulillah. ‎‏(وَآخِرُ دَعْوَاهُمْ أَنِ الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ)</span>
         </div>
-        <div class="flex items-center gap-3">
-          <span class="text-slate-500">Contact:</span>
-          <a href="https://www.linkedin.com/in/mohammed-khaleel-a95613274/" target="_blank" class="text-slate-400 hover:text-cyber-primary transition-colors">
-            <i class="fa-brands fa-linkedin-in"></i> LinkedIn </a>
+        
+        <div class="flex items-center gap-3 bg-cyber-card/60 px-4 py-2 rounded-lg border border-cyber-border/50">
+          <span class="text-slate-400">Contact:</span>
+          <a href="https://www.linkedin.com/in/mohammed-khaleel-a95613274/" target="_blank" class="text-cyber-primary hover:text-cyber-neon transition-colors flex items-center gap-1">
+            <i class="fa-brands fa-linkedin-in"></i> LinkedIn
+          </a>
           <span class="text-slate-700">|</span>
-          <span class="text-slate-400">
-            <i class="fa-solid fa-paper-plane"></i> TG: @mohammed_1ww </span>
+          <span class="text-cyber-accent flex items-center gap-1">
+            <i class="fa-solid fa-paper-plane"></i> @mohammed_1ww
+          </span>
         </div>
       </footer>
+
     </main>
-    <footer class="max-w-4xl mx-auto px-4 py-8 mt-12 border-t border-cyber-border/40 text-center text-xs font-mono text-slate-600">
-      <div class="text-cyber-primary">Special thanks to @lu3ky13 & @(HexaPhp) // eWPTX Writeup Archive.</div>
+
+    <!-- Site Footer -->
+    <footer class="max-w-4xl mx-auto px-4 py-8 mt-8 border-t border-cyber-border/40 text-center text-xs font-mono text-slate-500">
+      <div>
+        Special thanks to <span class="text-cyber-primary font-medium">@lu3ky13</span> & <span class="text-cyber-accent font-medium">@(HexaPhp)</span> // eWPTX Writeup Archive.
+      </div>
     </footer>
+
   </body>
 </html>
