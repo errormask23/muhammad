@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Writeups Archive // Cyber Security & Offensive Security Hub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            display: ['Space Grotesk', 'sans-serif'],
+            mono: ['Fira Code', 'monospace'],
+          },
+          colors: {
+            cyber: {
+              bg: '#050814',
+              card: '#0d1527',
+              'card-hover': '#131e36',
+              border: '#1e293b',
+              primary: '#06b6d4', /* Cyan */
+              accent: '#a855f7',  /* Purple */
+              neon: '#38bdf8',    /* Sky Blue */
+              emerald: '#10b981',
+              rose: '#f43f5e',
+              amber: '#f59e0b'
+            }
+          },
+          boxShadow: {
+            'neon-cyan': '0 0 20px -5px rgba(6, 182, 212, 0.4)',
+            'neon-purple': '0 0 20px -5px rgba(168, 85, 247, 0.4)',
+            'glow-sm': '0 0 10px rgba(6, 182, 212, 0.25)',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .cyber-grid {
+      background-size: 35px 35px;
+      background-image: 
+        linear-gradient(to right, rgba(6, 182, 212, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(6, 182, 212, 0.03) 1px, transparent 1px);
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, #38bdf8 0%, #a855f7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .gradient-border {
+      position: relative;
+    }
+    .gradient-border::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 0.75rem;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(6,182,212,0.5), rgba(168,85,247,0.3));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #050814;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #06b6d4;
+    }
+  </style>
+</head>
+<body class="bg-cyber-bg text-slate-300 font-sans antialiased selection:bg-cyber-primary/30 selection:text-white min-h-screen cyber-grid relative overflow-x-hidden" 
+      x-data="{ 
+        search: '', 
+        activeCategory: 'All',
+        writeups: [
+          {
+            id: 1,
+            title: 'How I Passed eWPTX v3 (eLearnSecurity Web Application Penetration Tester eXtreme)',
+            excerpt: 'My full journey, 18-hour exam strategy, golden rules for second attempt, and focused vulnerability vectors for mastering eWPTX v3.',
+            category: 'Certifications',
+            date: 'May 2, 2026',
+            readTime: '8 min read',
+            difficulty: 'Hard',
+            tags: ['eWPTX', 'Web Pentesting', 'INE', 'PortSwigger'],
+            link: 'ewptx-v3-writeup.html',
+            featured: true
+          },
+          {
+            id: 2,
+            title: 'Advanced JWT Vulnerabilities & Alg:None Exploitation Deep Dive',
+            excerpt: 'Analyzing real-world JSON Web Token misconfigurations, key confusion attacks, and bypassing signature verifications.',
+            category: 'Web Security',
+            date: 'Apr 18, 2026',
+            readTime: '12 min read',
+            difficulty: 'Medium',
+            tags: ['JWT', 'Authentication', 'Web', 'API'],
+            link: '#',
+            featured: false
+          },
+          {
+            id: 3,
+            title: 'Bypassing WAFs in Modern Blind SSRF & OAST Exploitation',
+            excerpt: 'Practical techniques to bypass strict Web Application Firewalls using DNS rebinding, alternative encodings, and Out-of-Band techniques.',
+            category: 'Web Security',
+            date: 'Mar 29, 2026',
+            readTime: '15 min read',
+            difficulty: 'Hard',
+            tags: ['SSRF', 'WAF Bypass', 'OAST', 'Cloud'],
+            link: '#',
+            featured: false
+          },
+          {
+            id: 4,
+            title: 'HackTheBox - Cyberpwn Laboratory Walkthrough',
+            excerpt: 'Step-by-step breakdown of obtaining initial access via custom API deserialization and escalating privileges via Linux capabilities.',
+            category: 'CTF / HTB',
+            date: 'Feb 14, 2026',
+            readTime: '10 min read',
+            difficulty: 'Hard',
+            tags: ['HTB', 'Linux', 'Deserialization', 'PrivEsc'],
+            link: '#',
+            featured: false
+          },
+          {
+            id: 5,
+            title: 'API Security Testing Methodology: From Recon to Full Compromise',
+            excerpt: 'A comprehensive checklist and methodology guide for auditing GraphQL, RESTful APIs, and OAuth 2.0 implementations.',
+            category: 'Methodology',
+            date: 'Jan 05, 2026',
+            readTime: '18 min read',
+            difficulty: 'Medium',
+            tags: ['API', 'GraphQL', 'OAuth', 'Recon'],
+            link: '#',
+            featured: false
+          }
+        ],
+        get filteredWriteups() {
+          return this.writeups.filter(w => {
+            const matchesCategory = this.activeCategory === 'All' || w.category === this.activeCategory;
+            const matchesSearch = w.title.toLowerCase().includes(this.search.toLowerCase()) || 
+                                  w.excerpt.toLowerCase().includes(this.search.toLowerCase()) ||
+                                  w.tags.some(t => t.toLowerCase().includes(this.search.toLowerCase()));
+            return matchesCategory && matchesSearch;
+          });
+        }
+      }">
+
+  <!-- Ambient Glow Backgrounds -->
+  <div class="fixed top-0 left-1/4 w-96 h-96 bg-cyber-primary/10 rounded-full blur-[120px] pointer-events-none"></div>
+  <div class="fixed bottom-1/3 right-1/4 w-96 h-96 bg-cyber-accent/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+  <!-- Header Navigation -->
+  <header class="sticky top-0 z-50 backdrop-blur-xl border-b border-cyber-border/60 bg-cyber-bg/80 h-16 transition-all duration-300">
+    <div class="max-w-5xl mx-auto px-4 h-full flex justify-between items-center">
+      <a href="#" class="font-display font-bold text-lg text-slate-100 flex items-center gap-2 tracking-tight group">
+        <span class="text-cyber-primary font-mono group-hover:text-cyber-accent transition-colors">&lt;/&gt;</span>
+        <span class="group-hover:text-cyber-neon transition-colors">System_Core</span>
+      </a>
+      <div class="flex items-center gap-4">
+        <a href="../index.html" class="text-xs font-mono text-slate-400 hover:text-cyber-primary transition-colors flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-800 hover:border-cyber-primary/40 bg-cyber-card/50 backdrop-blur-sm">
+          <i class="fa-solid fa-user text-cyber-primary"></i> Portfolio
+        </a>
+        <a href="https://github.com" target="_blank" class="text-slate-400 hover:text-white transition-colors text-sm p-1.5">
+          <i class="fa-brands fa-github"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/mohammed-khaleel-a95613274/" target="_blank" class="text-slate-400 hover:text-cyber-primary transition-colors text-sm p-1.5">
+          <i class="fa-brands fa-linkedin-in"></i>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="max-w-5xl mx-auto px-4 py-12 relative z-10">
+    
+    <!-- Hero Header -->
+    <section class="mb-12 text-center sm:text-left space-y-4">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        KNOWLEDGE BASE & WRITEUPS ARCHIVE
+      </div>
+      <h1 class="font-display font-bold text-3xl sm:text-5xl text-white tracking-tight">
+        Offensive Security <span class="gradient-text">Writeups</span>
+      </h1>
+      <p class="text-slate-400 text-sm sm:text-base max-w-2xl leading-relaxed">
+        A collection of penetration testing writeups, exam experiences, vulnerability research, CTF walkthroughs, and security methodology guides.
+      </p>
+
+      <!-- Stats Bar -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 font-mono text-xs">
+        <div class="bg-cyber-card/60 p-3.5 rounded-xl border border-cyber-border/50">
+          <div class="text-slate-500 mb-1">TOTAL WRITEUPS</div>
+          <div class="text-xl font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-file-code text-cyber-primary text-sm"></i>
+            <span x-text="writeups.length"></span>
+          </div>
+        </div>
+        <div class="bg-cyber-card/60 p-3.5 rounded-xl border border-cyber-border/50">
+          <div class="text-slate-500 mb-1">LATEST CERTS</div>
+          <div class="text-xl font-bold text-emerald-400 flex items-center gap-2">
+            <i class="fa-solid fa-shield-halved text-sm"></i> eWPTX v3
+          </div>
+        </div>
+        <div class="bg-cyber-card/60 p-3.5 rounded-xl border border-cyber-border/50">
+          <div class="text-slate-500 mb-1">TOP FOCUS</div>
+          <div class="text-xl font-bold text-cyber-accent flex items-center gap-2">
+            <i class="fa-solid fa-bug text-sm"></i> Web & API
+          </div>
+        </div>
+        <div class="bg-cyber-card/60 p-3.5 rounded-xl border border-cyber-border/50">
+          <div class="text-slate-500 mb-1">STATUS</div>
+          <div class="text-xl font-bold text-cyber-neon flex items-center gap-2">
+            <i class="fa-solid fa-satellite-dish text-sm"></i> Active
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Search & Filters -->
+    <section class="mb-10 space-y-4">
+      <div class="flex flex-col sm:flex-row gap-4 justify-between items-stretch sm:items-center">
+        <!-- Search Input -->
+        <div class="relative flex-1">
+          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
+          <input 
+            type="text" 
+            x-model="search"
+            placeholder="Search writeups by title, vulnerability, tag..."
+            class="w-full bg-cyber-card/80 border border-cyber-border/80 focus:border-emerald-500 rounded-xl pl-10 pr-4 py-2.5 text-sm text-slate-200 placeholder-slate-500 outline-none transition-all shadow-sm"
+          >
+          <button 
+            x-show="search.length > 0" 
+            @click="search = ''"
+            class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 text-xs font-mono">
+            Clear
+          </button>
+        </div>
+
+        <!-- Category Tabs -->
+        <div class="flex items-center gap-1.5 overflow-x-auto pb-2 sm:pb-0 text-xs font-mono">
+          <template x-for="cat in ['All', 'Certifications', 'Web Security', 'CTF / HTB', 'Methodology']">
+            <button 
+              @click="activeCategory = cat"
+              :class="activeCategory === cat ? 'bg-emerald-500 text-slate-950 font-bold border-emerald-400 shadow-glow-sm' : 'bg-cyber-card/60 text-slate-400 hover:text-slate-200 border-cyber-border/60 hover:border-slate-700'"
+              class="px-3 py-2 rounded-lg border transition-all whitespace-nowrap"
+              x-text="cat">
+            </button>
+          </template>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Writeup Section -->
+    <template x-if="activeCategory === 'All' && search === ''">
+      <section class="mb-10">
+        <div class="text-xs font-mono text-slate-500 uppercase tracking-wider mb-3 flex items-center gap-2">
+          <i class="fa-solid fa-star text-amber-400"></i> Featured Writeup
+        </div>
+        <template x-for="item in writeups.filter(w => w.featured)" :key="item.id">
+          <a :href="item.link" class="block group">
+            <div class="bg-cyber-card/90 rounded-2xl p-6 sm:p-8 border border-cyber-border/80 hover:border-emerald-500/60 transition-all duration-300 gradient-border shadow-neon-cyan relative overflow-hidden">
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-4 text-xs font-mono">
+                <!-- Green Category Span Badge -->
+                <span class="bg-emerald-950/60 text-emerald-400 border-emerald-500/40 px-2.5 py-1 rounded border font-semibold" 
+                      x-text="item.category"></span>
+                
+                <div class="flex items-center gap-3 text-slate-400">
+                  <span><i class="fa-regular fa-calendar mr-1"></i> <span x-text="item.date"></span></span>
+                  <span>•</span>
+                  <span><i class="fa-regular fa-clock mr-1"></i> <span x-text="item.readTime"></span></span>
+                </div>
+              </div>
+              <h2 class="font-display font-bold text-2xl sm:text-3xl text-white group-hover:text-emerald-400 transition-colors mb-3" x-text="item.title"></h2>
+              <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-6" x-text="item.excerpt"></p>
+              
+              <div class="flex flex-wrap justify-between items-center gap-4 pt-4 border-t border-cyber-border/50 text-xs font-mono">
+                <div class="flex flex-wrap gap-2">
+                  <template x-for="tag in item.tags" :key="tag">
+                    <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-400" x-text="'#' + tag"></span>
+                  </template>
+                </div>
+                <span class="text-emerald-400 font-bold group-hover:translate-x-1 transition-transform flex items-center gap-2">
+                  Read Article <i class="fa-solid fa-arrow-right text-xs"></i>
+                </span>
+              </div>
+            </div>
+          </a>
+        </template>
+      </section>
+    </template>
+
+    <!-- Writeups Grid List -->
+    <section>
+      <div class="text-xs font-mono text-slate-500 uppercase tracking-wider mb-4 flex justify-between items-center">
+        <span>All Writeups (<span x-text="filteredWriteups.length"></span>)</span>
+        <span x-show="search" class="text-emerald-400">Search active</span>
+      </div>
+
+      <!-- Empty Search Fallback -->
+      <div x-show="filteredWriteups.length === 0" class="text-center py-16 bg-cyber-card/30 rounded-2xl border border-cyber-border/40 font-mono">
+        <i class="fa-solid fa-ghost text-4xl text-slate-600 mb-3 block"></i>
+        <p class="text-slate-400 text-sm">No writeups found matching your search or filter.</p>
+        <button @click="search = ''; activeCategory = 'All'" class="mt-4 px-4 py-2 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs rounded-lg hover:bg-emerald-500/20 transition-colors">
+          Reset Search
+        </button>
+      </div>
+
+      <!-- Writeups Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <template x-for="item in filteredWriteups" :key="item.id">
+          <a :href="item.link" class="group flex flex-col justify-between bg-cyber-card/60 hover:bg-cyber-card/90 rounded-xl p-6 border border-cyber-border/60 hover:border-emerald-500/50 transition-all duration-300">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-3 text-xs font-mono">
+                <!-- Green Category Span Badge -->
+                <span class="bg-emerald-950/60 text-emerald-400 border-emerald-500/40 px-2 py-0.5 rounded border" 
+                      x-text="item.category"></span>
+                
+                <span class="text-slate-500" x-text="item.date"></span>
+              </div>
+              <h3 class="font-display font-bold text-lg text-slate-100 group-hover:text-emerald-400 transition-colors mb-2 leading-snug" x-text="item.title"></h3>
+              <p class="text-slate-400 text-xs sm:text-sm line-clamp-3 mb-4 leading-relaxed" x-text="item.excerpt"></p>
+            </div>
+
+            <div class="pt-4 border-t border-cyber-border/40 flex items-center justify-between gap-2 text-xs font-mono">
+              <div class="flex flex-wrap gap-1.5">
+                <template x-for="tag in item.tags.slice(0, 3)" :key="tag">
+                  <span class="text-slate-500" x-text="'#' + tag"></span>
+                </template>
+              </div>
+              <span class="text-slate-400 group-hover:text-emerald-400 transition-colors flex items-center gap-1">
+                Read <i class="fa-solid fa-chevron-right text-[10px] group-hover:translate-x-0.5 transition-transform"></i>
+              </span>
+            </div>
+          </a>
+        </template>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="max-w-5xl mx-auto px-4 py-8 mt-16 border-t border-cyber-border/40 text-center text-xs font-mono text-slate-500">
+    <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+      <div>
+        © 2026 <span class="text-cyber-primary">System_Core</span> // Offensive Security Archive.
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="https://www.linkedin.com/in/mohammed-khaleel-a95613274/" target="_blank" class="hover:text-cyber-primary transition-colors">
+          <i class="fa-brands fa-linkedin-in"></i> LinkedIn
+        </a>
+        <span class="text-slate-800">|</span>
+        <span class="text-slate-400"><i class="fa-solid fa-paper-plane text-cyber-accent"></i> TG: @mohammed_1ww</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
